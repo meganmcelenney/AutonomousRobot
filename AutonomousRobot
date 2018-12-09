@@ -1,0 +1,133 @@
+%brick = ConnectBrick('EV3G3');
+
+global key;
+InitKeyboard();
+while 1
+    pause(0.1);
+    color = brick.ColorCode(3);
+    touch = brick.TouchPressed(1);
+    touch2 = brick.TouchPressed(2);
+    distance = brick.UltrasonicDist(4);
+    pause(0.1);
+    if color ==2
+        disp("blue");
+        while 1
+                pause(0.1);
+                switch key
+                    case 'uparrow'
+                        brick.MoveMotor('BC', 30);  
+                        brick.MoveMotor('A', 100); 
+                    case 'downarrow'
+                        brick.MoveMotor('BC', -30);
+                        brick.MoveMotor('A', 100); 
+                     case 'leftarrow'
+                        brick.MoveMotor('C', 30);
+                        brick.MoveMotor('A', 100); 
+                    case 'rightarrow'
+                        brick.MoveMotor('B', 30);
+                        brick.MoveMotor('A', 100); 
+                    case 'i'
+                        brick.MoveMotor('BC', 30);  
+                    case 'k'
+                        brick.MoveMotor('BC', -30);
+                     case 'j'
+                        brick.MoveMotor('C', 30);
+                    case 'l'
+                        brick.MoveMotor('B', 30);
+                    case 0      % No key is being pressed.
+                        brick.StopAllMotors();
+                    case 'w'
+                        brick.MoveMotor('A', 100);
+                    case 's'
+                        brick.MoveMotor('A', -100);
+                    case 'q'    % Press "q" to quit.
+                        brick.StopAllMotors();
+                        
+                    break;
+                end
+        end
+    end
+    if color ==3
+       disp("green");   
+       while 1
+                pause(0.1);
+                switch key
+                    case 'uparrow'
+                        brick.MoveMotor('BC', 30);  
+                        brick.MoveMotor('A', 100); 
+                    case 'downarrow'
+                        brick.MoveMotor('BC', -30);
+                        brick.MoveMotor('A', 100); 
+                     case 'leftarrow'
+                        brick.MoveMotor('C', 30);
+                        brick.MoveMotor('A', 100); 
+                    case 'rightarrow'
+                        brick.MoveMotor('B', 30);
+                        brick.MoveMotor('A', 100); 
+                    case 'i'
+                        brick.MoveMotor('BC', 30);  
+                    case 'k'
+                        brick.MoveMotor('BC', -30);
+                     case 'j'
+                        brick.MoveMotor('C', 30);
+                    case 'l'
+                        brick.MoveMotor('B', 30);
+                    case 0      % No key is being pressed.
+                        brick.StopAllMotors();
+                    case 'w'
+                        brick.MoveMotor('A', 100);
+                    case 's'
+                        brick.MoveMotor('A', -100);
+                    case 'q'    % Press "q" to quit.
+                        brick.StopAllMotors();
+                        
+                    break;
+                end
+       end   
+    end
+    %redlight
+    if color ==5
+       pause(2);
+       disp("red");
+       for w=0: 2
+       brick.MoveMotor('CB', 50);
+       end
+    end
+    %wall
+    if touch == 1 || touch2==1
+
+        brick.StopAllMotors();
+            
+        brick.MoveMotor('BC', -100);
+        
+            brick.StopAllMotors();
+            for w=0: 1
+                brick.MoveMotor('C', 35);
+                brick.MoveMotor('B', -35);
+            end
+    end  
+    %turn
+    display(distance);
+if distance >55 
+    brick.StopAllMotors();
+    for w=0: 1
+    brick.MoveMotor('BC', 55); 
+    end
+    for w=0: 1
+    brick.MoveMotor('B', 40);
+    brick.MoveMotor('C', -50);
+    end
+    for w=0:4
+    brick.MoveMotor('BC', 50);
+    end
+    
+end
+   for w=0: 3
+   brick.MoveMotor('BC', 50);
+   end
+   brick.StopAllMotors();
+end
+
+
+brick.StopAllMotors();
+CloseKeyboard();
